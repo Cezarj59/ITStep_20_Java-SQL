@@ -1,0 +1,10 @@
+CREATE DATABASE myStore;
+
+USE myStore;
+
+CREATE TABLE produto (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome varchar(55) NOT NULL,
+    fabricante varchar(55),
+    preco float
+    );
