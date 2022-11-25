@@ -34,6 +34,8 @@ public class ProdutoController {
             statement.setDouble(3, p.getPreco());
 
             int linhasInseridas = statement.executeUpdate();
+            
+            statement.close();//limpando memória
 
             if (linhasInseridas > 0) {
                 System.out.println("\nProduto Cadastrado com sucesso!\n");
