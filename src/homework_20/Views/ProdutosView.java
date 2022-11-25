@@ -41,7 +41,6 @@ public class ProdutosView {
                     System.out.println("Nome: " + p.getNome());
                     System.out.println("Fabricante: " + p.getFabricante());
                     System.out.println("Preço: " + p.getPreco());
-                    System.out.println("\n------------------------------\n");
                 }
             }
 

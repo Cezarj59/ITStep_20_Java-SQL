@@ -5,6 +5,6 @@ USE myStore;
 CREATE TABLE produto (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome varchar(55) NOT NULL,
-    fabricante varchar(55),
-    preco float
+    fabricante varchar(55) DEFAULT "Marca Própria",
+    preco double DEFAULT 0
     );

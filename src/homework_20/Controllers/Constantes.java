@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Constantes {
 
     public static Scanner read = new Scanner(System.in);
-    
+
     public static String host = "localhost";
     public static String port = "3306";
     public static String banco = "myStore";
@@ -13,4 +13,7 @@ public class Constantes {
 
     public static String user = "root";
     public static String pass = "";
+
+    public static String driver = "com.jdbc.mysql.Driver";
+
 }

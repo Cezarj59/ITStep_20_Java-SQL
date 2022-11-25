@@ -5,7 +5,7 @@ public class Produto {
     private String nome;
     private String fabricante;
     private double preco;
-    private int id;
+    private int id = 0;
 
     public Produto() {
     }
