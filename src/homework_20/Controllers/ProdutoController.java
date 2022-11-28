@@ -1,52 +1,82 @@
 package homework_20.Controllers;
 
 import homework_20.Controllers.Constantes;
+import homework_20.Services.BancoDados;
 import homework_20.Models.Produto;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ProdutoController {
 
-    public static void cadastra() {
+  
 
-        try {
-            Connection conn = DriverManager.getConnection(Constantes.url, Constantes.user, Constantes.pass);
+    
+    
+    public static void addProduto(Produto p) {
+        Connection conn = BancoDados.getConn();
 
-            if (conn != null) {
-                 System.out.println("\n-----------------------------");
-                System.out.println("\nConectado ao banco de dados!\n");
-            }
-
-            Produto p = new Produto();
-
-            System.out.print("Nome do Produto: ");
-            p.setNome(Constantes.read.nextLine());
-
-            System.out.print("Fabricante: ");
-            p.setFabricante(Constantes.read.nextLine());
-
-            System.out.print("Preço: ");
-            p.setPreco(Constantes.read.nextDouble());
+        if (conn == null) {
+            System.err.println("Erro na conexão");
+        } else {
 
             String sql = "INSERT INTO produto (nome,fabricante,preco) VALUES (?,?,?)";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, p.getNome());
-            statement.setString(2, p.getFabricante());
-            statement.setDouble(3, p.getPreco());
+            try {
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1, p.getNome());
+                statement.setString(2, p.getFabricante());
+                statement.setDouble(3, p.getPreco());
 
-            int linhasInseridas = statement.executeUpdate();
-            
-            statement.close();//limpando memória
+                int linhasInseridas = statement.executeUpdate();
 
-            if (linhasInseridas > 0) {
-                System.out.println("\nProduto Cadastrado com sucesso!\n");
+                if (linhasInseridas > 0) {
+                    System.out.println("\nProduto Cadastrado com sucesso!\n");
+                } else {
+                    System.err.println("Falha ao cadastrar o produto.");
+                }
+
+                statement.close();//limpando memória
+                conn.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+
             }
 
-            conn.close();
-
-        } catch (SQLException ex) {
-            System.err.println("Erro: " + ex);
         }
 
     }
 
+    public static ArrayList<Produto> getAllProduto() {
+        ArrayList<Produto> produtoList = new ArrayList<Produto>();
+        Connection conn = BancoDados.getConn();
+
+        if (conn == null) {
+            System.err.println("Erro na conexão");
+            return produtoList;
+        }
+
+        String sql = "SELECT * FROM produto";
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultado = statement.executeQuery(sql);
+
+            while (resultado.next()) {
+                produtoList.add(new Produto(resultado.getString("nome"),
+                        resultado.getString("fabricante"),
+                        resultado.getDouble("preco"),
+                        resultado.getInt(1)
+                )
+                );
+            }
+            statement.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+
+        return produtoList;
+    }
+    
+
+   
 }
