@@ -1,7 +1,6 @@
 package homework_20.Views;
 
 import homework_20.Controllers.Constantes;
-import homework_20.Controllers.ProdutoController;
 import java.util.Scanner;
 
 public class Menu {
@@ -20,7 +19,7 @@ public class Menu {
 
             switch (option) {
                 case "1" -> {
-                    ProdutoController.cadastra();
+                    ProdutosView.cadastra();
                     subMenuCadastro();
                 }
                 case "2" -> {
@@ -52,7 +51,7 @@ public class Menu {
 
             switch (option) {
                 case "1" ->
-                    ProdutoController.cadastra();
+                    ProdutosView.cadastra();
 
                 case "2" ->
                    menu();
